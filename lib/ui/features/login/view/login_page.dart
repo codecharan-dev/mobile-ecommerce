@@ -22,6 +22,149 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // back container
+    // text
+    return Scaffold(
+      body: Container(
+        margin: EdgeInsets.only(left: 0.w),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: ClipPath(
+                clipper: SlopeClipper(),
+                child: Container(
+                  width: double.maxFinite,
+                  height: 500,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColors.primaryColor,
+                        Colors.red,
+                      ],
+                    ),
+                  ),
+                ),
+              ),),
+            SingleChildScrollView(
+              child:  Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: buildreuableText(
+                        text: "Sign in",
+                        fontSize: 30.sp,
+                        color: AppColors.primaryTextColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.h ),
+                    child: buildreuableText(
+                      text: "Login to your account",
+                      fontSize: 15.sp,
+                      color: AppColors.primaryTextColor,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(15.w,40.h, 15.w, 95.h),
+                    padding: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          offset: Offset(1.w, 1.h),
+                          blurRadius: 7,
+                          spreadRadius: 2,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(15.w),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        buildReusableTextFormField(
+                          top: 30.h,
+                          hintText: "Username or E-mail",
+                          obsecureText: false,
+                          prefixIcon: Icons.person,
+                        ),
+                        buildReusableTextFormFieldForPassword(
+                          top: 18.h,
+                          hintText: "Password",
+                          obsecureText: true,
+                          prefixIcon: Icons.key,
+                          suffixIcon: Icons.remove_red_eye,
+                          onPressed: () {},
+                        ),
+                        buildForgotPasswordRow(
+                          onPressed: () {},
+                          onTap: () {},
+                        ),
+                        buildReusableButton(
+                          top: 16.h,
+                          backgroundColor: AppColors.primaryColor,
+                          shadowColor: AppColors.primaryColor.withOpacity(0.5),
+                          buttonName: "SIGN IN",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp,
+                        ),
+                        orText(),
+                        buildReusableOauthButton(
+                          backgroundColor: AppColors.teritaryColor,
+                          shadowColor: AppColors.teritaryColor.withOpacity(0.5),
+                          buttonName: "LOGIN WITH FACEBOOK",
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16.sp,
+                          icon: FontAwesomeIcons.facebook,
+                        ),
+                        buildReusableOauthButton(
+                          backgroundColor: AppColors.fourthColor,
+                          shadowColor: AppColors.fourthColor.withOpacity(0.5),
+                          buttonName: "LOGIN WITH GOOGLE",
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16.sp,
+                          icon: FontAwesomeIcons.google,
+                        ),
+                        dontAndAlreadyHaveAnAccountRow(
+                          buildTextFontsize: 16.sp,
+                          fontSize: 16.sp,
+                          left: 32.w,
+                          top: 20.h,
+                          text: "Don't have an account",
+                          buttonName: "Sign up Now!",
+                          onTap: () {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              AppRouteConstant.signUpPage,
+                                  (route) => false,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  @override
+  Widget build1(BuildContext context) {
+    // back container
     // text 
     return Scaffold(
       body: Container(
@@ -137,4 +280,19 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+class SlopeClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, size.height);
+    path.lineTo(size.width, 200);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
 }
