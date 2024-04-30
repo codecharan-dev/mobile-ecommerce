@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_ecommerce/utils/app_route_constant.dart';
 import 'package:mobile_ecommerce/utils/colors.dart';
 import 'package:mobile_ecommerce/utils/widgets.dart';
 
@@ -13,24 +12,45 @@ class SignupPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(left: 0.w),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(children: [
-                 Container(
-                    padding: EdgeInsets.only(top: 55.h, left: 118.w),
-                    height: 320.h,
-                    width: 360.w,
-                    color: AppColors.primaryColor,
-                    child: buildreuableText(
-                      text: "Sign up",
-                      fontSize: 30.sp,
-                      color: AppColors.primaryTextColor,
-                      fontWeight: FontWeight.bold,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: ClipPath(
+                clipper: SlopeClipper(),
+                child: Container(
+                  width: double.maxFinite,
+                  height: 500,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        AppColors.primaryColor2,
+                        AppColors.primaryColor2,
+                      ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(top: 95.h, left: 106.w),
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: buildreuableText(
+                        text: "Sign Up",
+                        fontSize: 30.sp,
+                        color: AppColors.primaryTextColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.h),
                     child: buildreuableText(
                       text: "Create new account",
                       fontSize: 15.sp,
@@ -39,7 +59,8 @@ class SignupPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(15.w, 145.h, 15.w, 60.h),
+                    margin: EdgeInsets.fromLTRB(15.w, 40.h, 15.w, 95.h),
+                    padding: const EdgeInsets.only(bottom: 20),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -53,35 +74,36 @@ class SignupPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                         buildReusableTextFormField(
+                        buildReusableTextFormField(
                           top: 30.h,
-                          hintText: "Full Name",
+                          hintText: "Name",
                           obsecureText: false,
                           prefixIcon: Icons.person,
                         ),
                         buildReusableTextFormField(
-                          top: 18.h,
+                          top: 15.h,
                           hintText: "Username or E-mail",
                           obsecureText: false,
                           prefixIcon: Icons.email,
                         ),
-                         buildReusableTextFormField(
-                          top: 18.h,
+                        buildReusableTextFormField(
+                          top: 15.h,
                           hintText: "Phone Number",
                           obsecureText: false,
                           prefixIcon: Icons.phone,
                         ),
                         buildReusableTextFormFieldForPassword(
-                          top: 18.h,
-                          hintText: "Create Password",
+                          top: 15.h,
+                          hintText: "Password",
                           obsecureText: true,
                           prefixIcon: Icons.key,
                           suffixIcon: Icons.remove_red_eye,
                           onPressed: () {},
                         ),
                         buildReusableTextFormFieldForPassword(
-                          top: 18.h,
+                          top: 15.h,
                           hintText: "Confrim Password",
                           obsecureText: true,
                           prefixIcon: Icons.key,
@@ -89,32 +111,59 @@ class SignupPage extends StatelessWidget {
                           onPressed: () {},
                         ),
                         dontAndAlreadyHaveAnAccountRow(
-                          buildTextFontsize: 14.sp,
-                          fontSize: 14.sp,
-                          left: Platform.isAndroid ? 38.w : 35.w,
-                          top: 25.h,
-                          onTap: () {},
-                          text: "Already have an account",
+                          buildTextFontsize: 16.sp,
+                          fontSize: 16.sp,
+                          left: 25.w,
+                          top: 20.h,
+                          text: "Don't have an account",
                           buttonName: "Sign in Now!",
+                          onTap: () {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              AppRouteConstant.logInPage,
+                              (route) => false,
+                            );
+                          },
                         ),
-                        
                       ],
                     ),
                   ),
-                  buildReusableButton(
-                    top: 595.h,
-                    backgroundColor: AppColors.primaryColor,
-                    shadowColor: AppColors.primaryColor.withOpacity(0.5),
-                    buttonName: "SIGN UP",
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.sp,
-                  ),
                 ],
               ),
-            ],
-          ),
+            ),
+            buildReusableButton(
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRouteConstant.applicationPage,
+                  (route) => false,
+                );
+              },
+              top: 586.h,
+              backgroundColor: AppColors.primaryColor,
+              shadowColor: AppColors.primaryColor.withOpacity(0.5),
+              buttonName: "SIGN UP",
+              fontWeight: FontWeight.bold,
+              fontSize: 20.sp,
+            ),
+          ],
         ),
       ),
     );
   }
+}
+
+class SlopeClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, size.height);
+    path.lineTo(size.width, 200);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
 }

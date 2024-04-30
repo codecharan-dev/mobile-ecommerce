@@ -9,8 +9,9 @@ Widget buildreuableText({
   required double fontSize,
   required Color color,
   required FontWeight fontWeight,
-}) {
-  return Text(
+   
+} ) {
+  return Text(overflow: TextOverflow.ellipsis,
     text,
     style: TextStyle(
       color: color,
@@ -29,6 +30,7 @@ Widget buildReusableButton({
   required FontWeight fontWeight,
   required double fontSize,
   required double top,
+  required VoidCallback onPressed
 }) {
   return Container(
     margin: EdgeInsets.only(left: 18.w, right: 18.w, top: top),
@@ -44,7 +46,7 @@ Widget buildReusableButton({
           backgroundColor: backgroundColor,
           foregroundColor: AppColors.secondaryColor,
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: buildreuableText(
           text: buttonName,
           fontSize: fontSize,

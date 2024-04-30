@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: LoginPage(),
         onGenerateRoute: AppRoutes.onGenerateRouteForMyApp,
-        initialRoute: AppRouteConstant.logInPage,
+        initialRoute: AppRouteConstant.applicationPage,
       ),
     );
   }

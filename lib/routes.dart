@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ecommerce/ui/features/application/view/application_page.dart';
 import 'package:mobile_ecommerce/ui/features/login/view/login_page.dart';
 import 'package:mobile_ecommerce/ui/features/login/view/signup_page.dart';
 import 'package:mobile_ecommerce/utils/app_route_constant.dart';
@@ -14,6 +15,11 @@ class AppRoutes {
       // Sign Up page navigation
       case AppRouteConstant.signUpPage:
         return MaterialPageRoute(builder: (context) => const SignupPage());
+
+      // Application Page page navigation
+      case AppRouteConstant.applicationPage:
+        return MaterialPageRoute(builder: (context) => const ApplicationPage());
+
 
       // default
       default:
