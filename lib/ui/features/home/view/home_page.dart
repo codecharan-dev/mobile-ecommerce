@@ -20,50 +20,64 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
       body: CustomScrollView(
         slivers: [
+          /// This Section will animate
           SliverPersistentHeader(
             delegate: MyDelegate(),
             pinned: true,
           ),
+
+          /// Normal scroll section
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                statusSection(),
-                bannerSection(),
+                Container(
+                  height: 1500,
+                  padding: EdgeInsets.all(13),
+                  child: GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1 / 1.5,
+                          crossAxisSpacing: 10,
+                    ),
+                    itemCount: 30,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            color: Colors.red,
+                            height: 90,
+                            width: double.maxFinite,
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              'Arun Double Chocolate Ice',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.yellow,
+                            height: 20,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
 
+                // GridListView
               ],
             ),
           )
         ],
-      ),
-    );
-  }
-
-  Container bannerSection() {
-    return Container(
-                height: 120,
-                color: Colors.black,
-              );
-  }
-
-  Container statusSection() {
-    return Container(
-      color: Colors.red,
-      height: 80,
-      child: ListView.builder(
-        itemCount: 5,
-        padding: const EdgeInsets.only(left: 13),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return const Padding(
-            padding: EdgeInsets.only(right: 15),
-            child: CircleAvatar(
-              radius: 40,
-            ),
-          );
-        },
       ),
     );
   }
