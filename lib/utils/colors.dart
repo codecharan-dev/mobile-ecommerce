@@ -9,6 +9,8 @@ class AppColors {
   static const Color fourthColor = Color(0xffE45941);
   static const Color fifthColor = Color(0xffEEE2FE);
   static const Color sixthColor = Color(0xff000000);
+  static const Color seventhColor = Color(0xff710EA3);
+  
   
 
   // Text Colors

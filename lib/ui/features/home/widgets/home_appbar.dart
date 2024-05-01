@@ -99,7 +99,7 @@ Widget deliveryInFiveMinColumn() {
           buildreuableText(
             text: "5 Mins",
             fontSize: 18.sp,
-            color: AppColors.primaryColor,
+            color: AppColors.seventhColor,
             fontWeight: FontWeight.bold,
           ),
         ],
