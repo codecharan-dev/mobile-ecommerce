@@ -11,7 +11,7 @@ class ApplicationPageBelongings {
         return const HomePage();
 
       case 1:
-        return const CategoriesPage();
+        return  CategoriesPage();
 
       case 2:
         return const CartPage();

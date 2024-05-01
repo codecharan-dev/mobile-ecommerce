@@ -1,21 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_ecommerce/ui/features/home/widgets/home_appbar.dart';
-import 'package:mobile_ecommerce/ui/features/home/widgets/special_offer_for_you.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build1(BuildContext context) {
-    return Scaffold(
-      appBar: homeAppbar(),
-      body: Column(
-        children: [
-          specialOfferForYouContainer(),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +20,16 @@ class HomePage extends StatelessWidget {
               [
                 Container(
                   height: 1500,
-                  padding: EdgeInsets.all(13),
+                  padding: const EdgeInsets.all(13),
                   child: GridView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       childAspectRatio: 1 / 1.5,
                           crossAxisSpacing: 10,
                     ),
-                    itemCount: 30,
+                    itemCount: 110,
                     itemBuilder: (context, index) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +39,7 @@ class HomePage extends StatelessWidget {
                             height: 90,
                             width: double.maxFinite,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 80,
                             child: Text(
                               'Arun Double Chocolate Ice',
