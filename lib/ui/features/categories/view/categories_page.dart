@@ -20,7 +20,7 @@ class CategoriesPage extends StatelessWidget {
 
   GridView categoriesGrids() {
     return GridView.builder(
-        itemCount: 55,
+        itemCount: 16,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisExtent: 140,
           crossAxisCount: 4,
