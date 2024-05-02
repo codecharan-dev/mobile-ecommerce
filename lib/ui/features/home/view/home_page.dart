@@ -77,8 +77,11 @@ class MyDelegate extends SliverPersistentHeaderDelegate {
     progress = progress > 0 ? progress : 0;
     progress = progress > 1 ? 1 : progress;
     final topContent = AlignmentTween(
-        begin: const Alignment(-1, -0.3), end: const Alignment(-1, -5));
+      begin: const Alignment(-1, -0.3),
+      end: const Alignment(-1, -5),
+    );
     return Container(
+      padding: EdgeInsets.only(top: 0),
       decoration: BoxDecoration(
         color: Colors.white,
         gradient: LinearGradient(

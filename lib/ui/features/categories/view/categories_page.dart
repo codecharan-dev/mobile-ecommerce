@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CategoriesPage extends StatelessWidget {
+class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key}) : super(key: key);
 
+  @override
+  State<CategoriesPage> createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,10 +21,14 @@ class CategoriesPage extends StatelessWidget {
             Container(
               height: 470.h,
               // color: Colors.yellow,
-              margin: EdgeInsets.only(left: 13.w, right: 13.w),
-              child: categoriesGrids(), /// categories grids using gridView builder called here
+              margin: EdgeInsets.only(left: 13.w, right: 13.w, top: 13.h),
+              child: categoriesGrids(),
+
+              /// categories grids using gridView builder called here
             ),
-            exploreNewCategoriesSection(), /// Explore new categories section called here
+            exploreNewCategoriesSection(),
+
+            /// Explore new categories section called here
           ],
         ),
       ),
@@ -51,8 +60,9 @@ class CategoriesPage extends StatelessWidget {
             shrinkWrap: true,
             itemCount: 13,
             itemBuilder: (context, index) {
-              return newCategoriesColumn();   /// categories column under the explore new categories circle chape and names in row which is scrollable and list view byiler used.
+              return newCategoriesColumn();
 
+              /// categories column under the explore new categories circle chape and names in row which is scrollable and list view byiler used.
             },
           ),
         )
@@ -150,19 +160,25 @@ class CategoriesPage extends StatelessWidget {
     );
   }
 
-  /// app bar
+  // APp bAr
 
   AppBar categoriesAppbar() {
+   
     return AppBar(
       centerTitle: true,
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 8.0),
+          padding: const EdgeInsets.only(right: 5.0),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: MySearchDelegate(),
+              );
+            },
             icon: Icon(
               FontAwesomeIcons.magnifyingGlass,
-              size: 20.sp,
+              size: 16.sp,
             ),
           ),
         ),
@@ -172,6 +188,68 @@ class CategoriesPage extends StatelessWidget {
         "All categories",
         style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
       ),
+    );
+  }
+}
+
+
+class MySearchDelegate extends SearchDelegate<String> {
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          if (query.isEmpty) {
+            close(context, "");
+          } else {
+            query = "";
+          }
+        },
+        icon: Icon(
+          Icons.clear,
+          size: 20.sp,
+        ),
+      )
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        return close(context, "");
+      },
+      icon: Icon(
+        Icons.arrow_back,
+        size: 20.sp,
+      ),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Text(query,);
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> suggestions = ["fruits", "veggies", "groceries", "sanitary"];
+    List<String> filteredSuggestions = suggestions
+        .where((suggestion) =>
+            suggestion.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    return ListView.builder(
+      itemCount: filteredSuggestions.length,
+      itemBuilder: (context, index) {
+        final suggestion = filteredSuggestions[index];
+        return ListTile(
+          title: Text(suggestion),
+          onTap: () {
+            query = suggestion;
+          },
+        );
+      },
     );
   }
 }
