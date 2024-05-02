@@ -8,44 +8,121 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: categoriesAppbar(),
-      body: Container(
-        margin: EdgeInsets.only(left: 8.w, right: 8.w),
-        child: categoriesGrids(),
+      appBar: categoriesAppbar(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 470.h,
+              // color: Colors.yellow,
+              margin: EdgeInsets.only(left: 13.w, right: 13.w),
+              child: categoriesGrids(), /// categories grids using gridView builder called here
+            ),
+            exploreNewCategoriesSection(), /// Explore new categories section called here
+          ],
+        ),
       ),
     );
   }
 
-  // categories grids
+  /// Explore new categories section
 
-  GridView categoriesGrids() {
-    return GridView.builder(
-        itemCount: 16,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisExtent: 140,
-          crossAxisCount: 4,
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 5,
-          // childAspectRatio: 0.9,
+  Widget exploreNewCategoriesSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 13.w, top: 7.h),
+          child: Text(
+            "Explore New Categories",
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
-        itemBuilder: (context, index) {
-          return Container(
-            height: 100,
-            margin: EdgeInsets.only(left: 0.5.w, right: 0.5.w),
-            //color: Colors.yellow,
-            child: categoriesContainer(),
-          );
-        },
-      );
+        Container(
+          //color: Colors.green,
+          padding: EdgeInsets.only(left: 13.w, top: 1.h, right: 13.w),
+          height: 120.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: 13,
+            itemBuilder: (context, index) {
+              return newCategoriesColumn();   /// categories column under the explore new categories circle chape and names in row which is scrollable and list view byiler used.
+
+            },
+          ),
+        )
+      ],
+    );
   }
 
-  // containers of categories in each grids
+  /// categories column under the explore new categories cirle chape and names in row which is scrollable and list view byiler used.
+
+  Widget newCategoriesColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 5.w),
+          height: 85.h,
+          width: 85.w,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.yellow,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(left: 18.w),
+          //color: Colors.green,
+          width: 90.w,
+          child: Text(
+            maxLines: 2,
+            "  Fruits & vegetables",
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// categories grids
+
+  Widget categoriesGrids() {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 16,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisExtent: 140,
+        crossAxisCount: 4,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
+        // childAspectRatio: 0.9,
+      ),
+      itemBuilder: (context, index) {
+        return Container(
+          height: 100,
+          margin: EdgeInsets.only(left: 0.5.w, right: 0.5.w),
+          // color: Colors.green,
+          child: categoriesContainer(),
+        );
+      },
+    );
+  }
+
+  /// containers of categories in each grids
 
   Widget categoriesContainer() {
     return Container(
       padding: EdgeInsets.only(right: 5.w),
       height: 150,
-    // color: Colors.green,
+      // color: Colors.green,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -73,7 +150,7 @@ class CategoriesPage extends StatelessWidget {
     );
   }
 
-  // app bar
+  /// app bar
 
   AppBar categoriesAppbar() {
     return AppBar(
